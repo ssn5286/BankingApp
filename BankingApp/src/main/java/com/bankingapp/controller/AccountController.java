@@ -1,5 +1,6 @@
 package com.bankingapp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.coyote.http11.Http11InputBuffer;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bankingapp.dto.AccountDto;
+import com.bankingapp.repository.AccountRepository;
 import com.bankingapp.service.AccountService;
 import com.bankingapp.service.impl.AccountServiceImpl;
 
@@ -31,6 +33,12 @@ public class AccountController {
 		this.accountService = accountService;
 	}
 
+	@GetMapping("/all")
+	public ResponseEntity<List<AccountDto>> findAll(){
+		System.out.println("Inside Controller findAll");
+		return new ResponseEntity<>(accountService.getAll(),HttpStatus.OK);
+		
+	}
 	@PostMapping
 	public ResponseEntity<AccountDto> addAccount(@RequestBody AccountDto accountDto) {
 
@@ -58,4 +66,6 @@ public class AccountController {
 	public ResponseEntity<?> delete(@PathVariable Long myId){
 		return new ResponseEntity<>(accountService.delete(myId),HttpStatus.OK);
 	}
+	
+
 }

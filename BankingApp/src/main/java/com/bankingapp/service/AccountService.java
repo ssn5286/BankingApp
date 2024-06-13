@@ -1,5 +1,7 @@
 package com.bankingapp.service;
 
+import java.util.List;
+
 import com.bankingapp.dto.AccountDto;
 
 public interface AccountService {
@@ -8,5 +10,5 @@ public interface AccountService {
 	AccountDto modifyBalance(Long id, double addAmount);
 	AccountDto withdraw(Long id, double withdrawalAmount);
 	String delete(Long id);
-
+	List<AccountDto> getAll();
 }

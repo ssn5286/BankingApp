@@ -77,11 +77,19 @@ public class AccountServiceImpl implements AccountService {
 		return "Account deleted";
 	}
 
-//	public List<AccountDto> getAll() {
-//		List<Account> account =  accountRepository.findAll();
-//		return new ArrayList<>(AccountMapper.maptoAccountDto(account))
-//		
-//	}
-//	
+	
+	public List<AccountDto> getAll() {
+		List<Account> account =  accountRepository.findAll();
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		
+		List<AccountDto> accountDto = new ArrayList<AccountDto>();
+		for (int i = 0; i < account.size();i++) {
+			accountDto.add(AccountMapper.maptoAccountDto(account.get(i)));
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + accountDto.get(i));
+		}
+		return accountDto;
+		
+	}
+	
 
 }
