@@ -3,6 +3,7 @@ package com.bankingapp.service.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,26 +71,27 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public String delete(Long id) {
 		// TODO Auto-generated method stub
-		
-		Account account = accountRepository.findById(id).orElseThrow(() -> new RuntimeException("Account does not exist"));
-		
+
+		Account account = accountRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Account does not exist"));
+
 		accountRepository.delete(account);
 		return "Account deleted";
 	}
 
-	
 	public List<AccountDto> getAll() {
-		List<Account> account =  accountRepository.findAll();
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		
-		List<AccountDto> accountDto = new ArrayList<AccountDto>();
-		for (int i = 0; i < account.size();i++) {
-			accountDto.add(AccountMapper.maptoAccountDto(account.get(i)));
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + accountDto.get(i));
-		}
-		return accountDto;
-		
+
+		return accountRepository.findAll().stream().map((account) -> AccountMapper.maptoAccountDto(account))
+				.collect(Collectors.toList());
+
+//		List<Account> account =  accountRepository.findAll();
+//		
+//		List<AccountDto> accountDto = new ArrayList<AccountDto>();
+//		for (int i = 0; i < account.size();i++) {
+//			accountDto.add(AccountMapper.maptoAccountDto(account.get(i)));
+//		}
+//		return accountDto;
+
 	}
-	
 
 }
